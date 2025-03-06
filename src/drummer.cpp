@@ -1,11 +1,25 @@
 #include "drummer.h"
 #include <Arduino.h>
 
+Adafruit_VL53L0X drummer::lox = Adafruit_VL53L0X();
+Servo drummer::servo;
+
 void drummer::setup() {
-  Serial.println("Drummer!");
+  Serial.print("Initializing Drummer...");
+  // Initialize ToF
+  if (!lox.begin()) {
+    Serial.println("Failed to boot ToF");
+    while(1);
+  }
+  lox.startRangeContinuous();
+
+  Serial.println("Finished");
 }
 
-// Example function definition
-int example2(int x, float y, bool z) {
-  return z ? x + y : x - y;
+void drummer::start() {
+  if (lox.isRangeComplete()) {
+    uint16_t distance = lox.readRange();
+    Serial.print("Distance in mm: ");
+    Serial.println(distance);
+  }
 }

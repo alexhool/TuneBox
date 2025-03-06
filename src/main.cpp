@@ -4,7 +4,7 @@
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("Initializing...");
+  Serial.println("TuneBox Setup...");
   launchpad::setup();
   drummer::setup();
 }
