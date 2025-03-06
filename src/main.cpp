@@ -10,6 +10,7 @@ void setup() {
 }
 
 void loop() {
-  Serial.print(".");
+  Serial.print("Starting program...");
+  drummer::start();
   delay(1000);
 }
