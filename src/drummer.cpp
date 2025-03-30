@@ -2,27 +2,32 @@
 #include <Arduino.h>
 
 VL53L0X drummer::tof;
-Servo drummer::servo;
+Servo drummer::leftservo;
+Servo drummer::rightservo;
 
-const int SERVO_PIN = 13;
-const int SERVO_START_POS = 90;
-const int SERVO_END_POS = 180;
-const int DISTANCE_THRESHOLD = 80;
+const uint8_t LEFTSERVO_PIN = 2;
+const uint8_t RIGHTSERVO_PIN = 3;
+const uint8_t LEFTSERVO_START = 0;
+const uint8_t RIGHTSERVO_START = 180;
+const uint8_t DISTANCE_THRESHOLD = 80;
 
 void drummer::setup() {
-  Serial.println("|--Drummer Setup--|");
+  Serial.println("Drummer Setup");
 
   // Initialize Servo
-  Serial.print("Initializing Servo...");
-  ESP32PWM::timerCount[0] = 4;
+  Serial.print("Initializing Servos... ");
+  ESP32PWM::allocateTimer(0);
   ESP32PWM::allocateTimer(1);
-  servo.setPeriodHertz(50);
-  servo.attach(SERVO_PIN, 1000, 2000);
-  servo.write(SERVO_START_POS);
+  leftservo.setPeriodHertz(50);
+  leftservo.attach(LEFTSERVO_PIN, 1000, 2000);
+  leftservo.write(LEFTSERVO_START);
+  rightservo.setPeriodHertz(50);
+  rightservo.attach(RIGHTSERVO_PIN, 1000, 2000);
+  rightservo.write(RIGHTSERVO_START);
   Serial.println("Done");
 
   // Initialize ToF
-  Serial.print("Initializing ToF...");
+  Serial.print("Initializing ToF... ");
   Wire.begin(6, 7);
   tof.setTimeout(100); // gives up after 100ms
   if (!tof.init()) {
@@ -32,25 +37,40 @@ void drummer::setup() {
   tof.setMeasurementTimingBudget(20000); // 20ms measurement time (default: 33ms)
   tof.startContinuous();
   Serial.println("Done");
-
-  Serial.println("|-----------------|");
 }
 
 void drummer::start() {
   uint16_t distance = tof.readRangeContinuousMillimeters();
   Serial.print("Distance: ");
-  Serial.println(distance);
+  Serial.print(distance);
+  Serial.println("mm");
 
   if (distance < DISTANCE_THRESHOLD) {
-    Serial.println("Sweeping Servo");
-    for (int pos = SERVO_START_POS; pos <= SERVO_END_POS; pos++) {
-      servo.write(pos);
-      delay(15);
+    Serial.println("Clapping twice");
+    // First clap
+    for (int8_t i = 0; i <= 90; i++) {
+      leftservo.write(LEFTSERVO_START + i);
+      rightservo.write(RIGHTSERVO_START - i);
+      delay(10);
+    }
+    // Return to start
+    for (int8_t i = 90; i >= 0; i--) {
+      leftservo.write(LEFTSERVO_START + i);
+      rightservo.write(RIGHTSERVO_START - i);
+      delay(10);
     }
     delay(500);
-    for (int pos = SERVO_END_POS; pos >= SERVO_START_POS; pos--) {
-      servo.write(pos);
-      delay(15);
+    // Second clap
+    for (int8_t i = 0; i <= 90; i++) {
+      leftservo.write(LEFTSERVO_START + i);
+      rightservo.write(RIGHTSERVO_START - i);
+      delay(19);
+    }
+    // Return to start
+    for (int8_t i = 90; i >= 0; i--) {
+      leftservo.write(LEFTSERVO_START + i);
+      rightservo.write(RIGHTSERVO_START - i);
+      delay(10);
     }
   }
 }

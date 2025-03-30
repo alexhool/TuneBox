@@ -3,14 +3,14 @@
 #include "drummer.h"
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(921600);
   Serial.println("TuneBox Setup...");
   launchpad::setup();
   drummer::setup();
+  Serial.println("Starting program...");
 }
 
 void loop() {
-  Serial.print("Starting program...");
   drummer::start();
   delay(1000);
 }

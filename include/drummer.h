@@ -6,7 +6,8 @@
 
 namespace drummer {
   extern VL53L0X tof;
-  extern Servo servo;
+  extern Servo leftservo;
+  extern Servo rightservo;
   void setup();
   void start();
 }
