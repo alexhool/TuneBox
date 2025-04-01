@@ -28,7 +28,6 @@ void drummer::setup(void) {
 
   // Initialize ToF
   Serial.print("Initializing ToF...");
-  Wire.begin(6, 7);
   tof.setTimeout(100); // gives up after 100ms
   while (!tof.init()) {
     Serial.print(".");
