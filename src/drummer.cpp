@@ -5,8 +5,8 @@ VL53L0X drummer::tof;
 Servo drummer::leftservo;
 Servo drummer::rightservo;
 
-const uint8_t LEFTSERVO_PIN = 2;
-const uint8_t RIGHTSERVO_PIN = 3;
+const uint8_t LEFTSERVO_PIN = 0;
+const uint8_t RIGHTSERVO_PIN = 15;
 const uint8_t LEFTSERVO_START = 0;
 const uint8_t RIGHTSERVO_START = 180;
 const uint8_t DISTANCE_THRESHOLD = 80;
@@ -48,26 +48,26 @@ void drummer::loop(void) {
   if (distance < DISTANCE_THRESHOLD) {
     Serial.println("Clapping twice");
     // First clap
-    for (int8_t i = 0; i <= 90; i++) {
+    for (int8_t i = 0; i <= 45; i++) {
       leftservo.write(LEFTSERVO_START + i);
       rightservo.write(RIGHTSERVO_START - i);
       delay(10);
     }
     // Return to start
-    for (int8_t i = 90; i >= 0; i--) {
+    for (int8_t i = 45; i >= 0; i--) {
       leftservo.write(LEFTSERVO_START + i);
       rightservo.write(RIGHTSERVO_START - i);
       delay(10);
     }
     delay(500);
     // Second clap
-    for (int8_t i = 0; i <= 90; i++) {
+    for (int8_t i = 0; i <= 45; i++) {
       leftservo.write(LEFTSERVO_START + i);
       rightservo.write(RIGHTSERVO_START - i);
       delay(19);
     }
     // Return to start
-    for (int8_t i = 90; i >= 0; i--) {
+    for (int8_t i = 45; i >= 0; i--) {
       leftservo.write(LEFTSERVO_START + i);
       rightservo.write(RIGHTSERVO_START - i);
       delay(10);

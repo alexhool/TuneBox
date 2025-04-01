@@ -3,9 +3,9 @@
 
 SerLCD launchpad::lcd;
 
-const uint8_t speaker = 19;
-const uint8_t playButton = 7;
-const uint8_t noteButtons[7] = {2, 3, 15, 23, 22, 21, 20}; //PINS: C D E F G A B
+const uint8_t speaker = 3;
+const uint8_t playButton = 12;
+const uint8_t noteButtons[7] = {13, 18, 19, 20, 21, 22, 23}; //PINS: C D E F G A B
 const uint16_t pianoNotes[7] = {262, 294, 330, 349, 392, 440, 494}; // C4 D4 E4 F4 G4 A4 B4
 
 int8_t gameMode = 0; // 0 - Idle, 1 - Playing Notes, 2 - Game
