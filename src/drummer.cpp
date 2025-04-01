@@ -39,7 +39,7 @@ void drummer::setup() {
   Serial.println("Done");
 }
 
-void drummer::start() {
+void drummer::loop() {
   uint16_t distance = tof.readRangeContinuousMillimeters();
   Serial.print("Distance: ");
   Serial.print(distance);

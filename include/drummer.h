@@ -9,7 +9,7 @@ namespace drummer {
   extern Servo leftservo;
   extern Servo rightservo;
   void setup();
-  void start();
+  void loop();
 }
 
 #endif
