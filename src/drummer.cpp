@@ -1,4 +1,4 @@
-#include "drummer.h"
+#include "drummer.h"                                      
 #include <Arduino.h>
 
 VL53L0X drummer::tof;
@@ -6,7 +6,7 @@ Servo drummer::leftservo;
 Servo drummer::rightservo;
 
 const uint8_t LEFTSERVO_PIN = 0;
-const uint8_t RIGHTSERVO_PIN = 15;
+const uint8_t RIGHTSERVO_PIN = 17;
 const uint8_t LEFTSERVO_START = 0;
 const uint8_t RIGHTSERVO_START = 180;
 const uint8_t DISTANCE_THRESHOLD = 40;

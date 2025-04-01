@@ -6,14 +6,14 @@ SerLCD launchpad::lcd;
 
 const uint8_t speaker = 3;
 const uint8_t playButton = 12;
-const uint8_t noteButtons[7] = {13, 18, 19, 20, 21, 23, 22}; //PINS: C D E F G A B
+const uint8_t noteButtons[7] = {16, 18, 19, 20, 21, 23, 22}; //PINS: C D E F G A B
 const uint16_t pianoNotes[7] = {262, 294, 330, 349, 392, 440, 494}; // C4 D4 E4 F4 G4 A4 B4
 
 int8_t gameMode = 0; // 0 - Idle, 1 - Playing Notes, 2 - Game
 static bool once = false;
 
 void launchpad::setup(void) {
-  Serial.println("Launchpad Setup");
+  Serial.println("Launchpad Setup");        
 
   Serial.print("Initializing Buttons...");
   pinMode(LED_BUILTIN, OUTPUT);

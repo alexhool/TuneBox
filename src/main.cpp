@@ -9,6 +9,7 @@ void setup() {
   drummer::setup();
   launchpad::setup();
   Serial.println("\n--Starting Program--");
+  delay(2000);
 }
 
 void loop() {
