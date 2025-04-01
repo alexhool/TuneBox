@@ -5,12 +5,12 @@
 void setup() {
   Serial.begin(921600);
   Serial.println("TuneBox Setup...");
-  launchpad::setup();
   drummer::setup();
   Serial.println("Starting program...");
 }
 
 void loop() {
-  drummer::start();
+  drummer::loop();
+  launchpad::loop();
   delay(1000);
 }

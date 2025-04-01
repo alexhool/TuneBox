@@ -1,9 +1,12 @@
 #ifndef LAUNCHPAD_H
 #define LAUNCHPAD_H
 
+#include <SerLCD.h>
+
 namespace launchpad {
+  extern SerLCD lcd;
   void setup();
-  int example1(int x, float y, bool z); // Example function declaration
+  void loop();
 }
 
 #endif
