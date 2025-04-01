@@ -9,7 +9,7 @@ const uint8_t LEFTSERVO_PIN = 0;
 const uint8_t RIGHTSERVO_PIN = 15;
 const uint8_t LEFTSERVO_START = 0;
 const uint8_t RIGHTSERVO_START = 180;
-const uint8_t DISTANCE_THRESHOLD = 80;
+const uint8_t DISTANCE_THRESHOLD = 40;
 
 void drummer::setup(void) {
   Serial.println("Drummer Setup");
@@ -45,31 +45,52 @@ void drummer::loop(void) {
   Serial.println("mm");
 
   if (distance < DISTANCE_THRESHOLD) {
-    Serial.println("Clapping twice");
-    // First clap
-    for (int8_t i = 0; i <= 45; i++) {
-      leftservo.write(LEFTSERVO_START + i);
-      rightservo.write(RIGHTSERVO_START - i);
-      delay(10);
-    }
-    // Return to start
-    for (int8_t i = 45; i >= 0; i--) {
-      leftservo.write(LEFTSERVO_START + i);
-      rightservo.write(RIGHTSERVO_START - i);
-      delay(10);
-    }
-    delay(500);
-    // Second clap
-    for (int8_t i = 0; i <= 45; i++) {
-      leftservo.write(LEFTSERVO_START + i);
-      rightservo.write(RIGHTSERVO_START - i);
-      delay(19);
-    }
-    // Return to start
-    for (int8_t i = 45; i >= 0; i--) {
-      leftservo.write(LEFTSERVO_START + i);
-      rightservo.write(RIGHTSERVO_START - i);
-      delay(10);
-    }
+    clap();
   }
+}
+
+void drummer::clap(void) {
+  Serial.println("Clapping twice");
+  // First clap
+  for (int8_t i = 0; i <= 45; i++) {
+    leftservo.write(LEFTSERVO_START + i);
+    rightservo.write(RIGHTSERVO_START - i);
+    delay(10);
+  }
+  // Return to start
+  for (int8_t i = 45; i >= 0; i--) {
+    leftservo.write(LEFTSERVO_START + i);
+    rightservo.write(RIGHTSERVO_START - i);
+    delay(10);
+  }
+  playCymbal();
+  // Second clap
+  for (int8_t i = 0; i <= 45; i++) {
+    leftservo.write(LEFTSERVO_START + i);
+    rightservo.write(RIGHTSERVO_START - i);
+    delay(19);
+  }
+  // Return to start
+  for (int8_t i = 45; i >= 0; i--) {
+    leftservo.write(LEFTSERVO_START + i);
+    rightservo.write(RIGHTSERVO_START - i);
+    delay(10);
+  }
+  playCymbal();
+}
+
+void drummer::playCymbal(void) {
+  Serial.println("Playing cymbal");
+
+  int steps = 50;
+  int stepDuration = 250 / steps;
+  int freqStep = (1000 - 800) / steps;
+
+  for (int i = 0; i < steps; i++) {
+    uint16_t currentFreq = 1000 - (freqStep * i);
+    tone(3, currentFreq, stepDuration);
+    delay(stepDuration);
+  }
+
+  noTone(3);
 }

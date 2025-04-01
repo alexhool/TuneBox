@@ -10,6 +10,8 @@ namespace drummer {
   extern Servo rightservo;
   void setup(void);
   void loop(void);
+  void clap(void);
+  void playCymbal(void);
 }
 
 #endif

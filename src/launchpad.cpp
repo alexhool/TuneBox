@@ -1,4 +1,5 @@
 #include "launchpad.h"
+#include "drummer.h"
 #include <Arduino.h>
 
 SerLCD launchpad::lcd;
@@ -45,7 +46,7 @@ void launchpad::idleMode() {
   for (int8_t i = 0; i < 7; i++) {
     if (digitalRead(noteButtons[i]) == HIGH) {
       Serial.println(i);
-      //tone(speaker, pianoNotes[i], 500);
+      tone(speaker, pianoNotes[i], 500);
       noTone(speaker);
       lcd.setCursor(0, 1);
       lcd.print("You Played: ");
@@ -66,7 +67,7 @@ bool launchpad::waitForInput(int correctNote) {
   while (millis() - start < timeout) {
     for (int8_t i = 0; i < 7; i++) {
       if (digitalRead(noteButtons[i]) == HIGH) {
-        // tone(speaker, pianoNotes[i], 500);
+        tone(speaker, pianoNotes[i], 500);
         noTone(speaker);
 
         lcd.print("You Played: ");
@@ -101,7 +102,7 @@ void launchpad::startGame(void) {
 
   lcd.clear();
   char notes[8] = "CDEFGAB";
-  int sequence[3] = {0, 1, 2};
+  int sequence[3] = {random(7), random(7), random(7)};
 
   lcd.print("Memorize and");
   lcd.setCursor(0, 1);
@@ -133,5 +134,6 @@ void launchpad::startGame(void) {
 
   lcd.clear();
   lcd.print("You Win!");
+  drummer::clap();
   delay(2000);
 }
