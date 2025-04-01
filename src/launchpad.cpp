@@ -5,16 +5,11 @@ SerLCD launchpad::lcd;
 
 const uint8_t speaker = 19;
 const uint8_t playButton = 7;
-const uint8_t bGuitarButton = 8;
 const uint8_t noteButtons[7] = {2, 3, 15, 23, 22, 21, 20}; //PINS: C D E F G A B
+const uint16_t pianoNotes[7] = {262, 294, 330, 349, 392, 440, 494}; // C4 D4 E4 F4 G4 A4 B4
 
 int8_t gameMode = 0; // 0 - Idle, 1 - Playing Notes, 2 - Game
-//bool guitarMode = false;
-int correctSequences = 0;
 static bool once = false;
-
-const uint16_t pianoNotes[7] = {262, 294, 330, 349, 392, 440, 494}; // C4 D4 E4 F4 G4 A4 B4
-const uint16_t guitarNotes[7] = {262, 262, 262, 262, 262, 262, 262}; // Guitar equivalents
 
 void launchpad::setup(void) {
   Serial.println("Launchpad Setup");
@@ -22,7 +17,6 @@ void launchpad::setup(void) {
   Serial.print("Initializing Buttons...");
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(playButton, INPUT);
-  pinMode(bGuitarButton, INPUT);
   pinMode(speaker, OUTPUT);
   for (int8_t i = 0; i < 7; i++) {
     pinMode(noteButtons[i], INPUT);
@@ -52,11 +46,7 @@ void launchpad::loop(void) {
 void launchpad::idleMode() {
   for (int8_t i = 0; i < 7; i++) {
     if (digitalRead(noteButtons[i]) == HIGH) {
-      if (digitalRead(bGuitarButton) == LOW) {
-        tone(speaker, guitarNotes[i], 500);
-      } else {
-        tone(speaker, pianoNotes[i], 500);
-      }
+      tone(speaker, pianoNotes[i], 500);
       noTone(speaker);
     }
     if (!once) {
