@@ -4,10 +4,10 @@
 
 void setup() {
   Serial.begin(921600);
-  Serial.println("TuneBox Setup...");
+  Serial.println("\n--TuneBox Setup--");
   drummer::setup();
   launchpad::setup();
-  Serial.println("Starting program...");
+  Serial.println("\n--Starting Program--");
 }
 
 void loop() {

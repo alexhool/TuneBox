@@ -15,7 +15,7 @@ void drummer::setup(void) {
   Serial.println("Drummer Setup");
 
   // Initialize Servo
-  Serial.print("Initializing Servos... ");
+  Serial.print("Initializing Servos...");
   ESP32PWM::allocateTimer(0);
   ESP32PWM::allocateTimer(1);
   leftservo.setPeriodHertz(50);
@@ -24,19 +24,19 @@ void drummer::setup(void) {
   rightservo.setPeriodHertz(50);
   rightservo.attach(RIGHTSERVO_PIN, 1000, 2000);
   rightservo.write(RIGHTSERVO_START);
-  Serial.println("Done");
+  Serial.println(" Done");
 
   // Initialize ToF
-  Serial.print("Initializing ToF... ");
+  Serial.print("Initializing ToF...");
   Wire.begin(6, 7);
   tof.setTimeout(100); // gives up after 100ms
-  if (!tof.init()) {
-    Serial.println("Failed to boot ToF");
-    while (1);
+  while (!tof.init()) {
+    Serial.print(".");
+    delay(500);
   }
   tof.setMeasurementTimingBudget(20000); // 20ms measurement time (default: 33ms)
   tof.startContinuous();
-  Serial.println("Done");
+  Serial.println(" Done");
 }
 
 void drummer::loop(void) {

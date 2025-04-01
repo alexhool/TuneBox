@@ -17,6 +17,9 @@ const uint16_t pianoNotes[7] = {262, 294, 330, 349, 392, 440, 494}; // C4 D4 E4 
 const uint16_t guitarNotes[7] = {262, 262, 262, 262, 262, 262, 262}; // Guitar equivalents
 
 void launchpad::setup(void) {
+  Serial.println("Launchpad Setup");
+
+  Serial.print("Initializing Buttons...");
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(playButton, INPUT);
   pinMode(bGuitarButton, INPUT);
@@ -24,19 +27,24 @@ void launchpad::setup(void) {
   for (int8_t i = 0; i < 7; i++) {
     pinMode(noteButtons[i], INPUT);
   }
+  Serial.println(" Done");
 
+  Serial.print("Initializing LCD...");
   Wire.begin(5, 6);
   lcd.begin(Wire);
   lcd.setBacklight(255, 255, 255);
   lcd.setContrast(3);
   lcd.clear();
   //lcd.print("Press PLAY");
+  Serial.println(" Done");
 }
 
 void launchpad::loop(void) {
   if (digitalRead(playButton) == HIGH) {
+    Serial.println("Game Mode");
     startGame();
   } else {
+    Serial.println("Idle Mode");
     idleMode(); // Just a playable keyboard now
   }
 }
