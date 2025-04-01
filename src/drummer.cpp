@@ -11,7 +11,7 @@ const uint8_t LEFTSERVO_START = 0;
 const uint8_t RIGHTSERVO_START = 180;
 const uint8_t DISTANCE_THRESHOLD = 80;
 
-void drummer::setup() {
+void drummer::setup(void) {
   Serial.println("Drummer Setup");
 
   // Initialize Servo
@@ -39,7 +39,7 @@ void drummer::setup() {
   Serial.println("Done");
 }
 
-void drummer::loop() {
+void drummer::loop(void) {
   uint16_t distance = tof.readRangeContinuousMillimeters();
   Serial.print("Distance: ");
   Serial.print(distance);

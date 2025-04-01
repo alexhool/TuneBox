@@ -5,8 +5,11 @@
 
 namespace launchpad {
   extern SerLCD lcd;
-  void setup();
-  void loop();
+  void setup(void);
+  void loop(void);
+  void idleMode(void);
+  bool waitForInput(int);
+  void startGame(void);
 }
 
 #endif

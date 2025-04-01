@@ -8,8 +8,8 @@ namespace drummer {
   extern VL53L0X tof;
   extern Servo leftservo;
   extern Servo rightservo;
-  void setup();
-  void loop();
+  void setup(void);
+  void loop(void);
 }
 
 #endif
