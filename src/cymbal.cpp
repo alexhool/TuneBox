@@ -1,9 +1,9 @@
-#include "drummer.h"                                      
 #include <Arduino.h>
+#include "cymbal.h"
 
-VL53L0X drummer::tof;
-Servo drummer::leftservo;
-Servo drummer::rightservo;
+VL53L0X cymbal::tof;
+Servo cymbal::leftservo;
+Servo cymbal::rightservo;
 
 const uint8_t LEFTSERVO_PIN = 0;
 const uint8_t RIGHTSERVO_PIN = 17;
@@ -11,8 +11,8 @@ const uint8_t LEFTSERVO_START = 0;
 const uint8_t RIGHTSERVO_START = 180;
 const uint8_t DISTANCE_THRESHOLD = 40;
 
-void drummer::setup(void) {
-  Serial.println("Drummer Setup");
+void cymbal::setup(void) {
+  Serial.println("Cymbal Buzz Setup");
 
   // Initialize Servo
   Serial.print("Initializing Servos...");
@@ -38,7 +38,7 @@ void drummer::setup(void) {
   Serial.println(" Done");
 }
 
-void drummer::loop(void) {
+void cymbal::loop(void) {
   uint16_t distance = tof.readRangeContinuousMillimeters();
   Serial.print("Distance: ");
   Serial.print(distance);
@@ -49,7 +49,7 @@ void drummer::loop(void) {
   }
 }
 
-void drummer::clap(void) {
+void cymbal::clap(void) {
   Serial.println("Clapping twice");
   // First clap
   for (int8_t i = 0; i <= 45; i++) {
@@ -79,7 +79,7 @@ void drummer::clap(void) {
   playCymbal();
 }
 
-void drummer::playCymbal(void) {
+void cymbal::playCymbal(void) {
   Serial.println("Playing cymbal");
 
   int steps = 50;

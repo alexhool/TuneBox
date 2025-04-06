@@ -1,9 +1,9 @@
-#ifndef LAUNCHPAD_H
-#define LAUNCHPAD_H
+#ifndef KEYBOARD_H
+#define KEYBOARD_H
 
 #include <SerLCD.h>
 
-namespace launchpad {
+namespace keyboard {
   extern SerLCD lcd;
   void setup(void);
   void loop(void);

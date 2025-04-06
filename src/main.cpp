@@ -1,18 +1,18 @@
 #include <Arduino.h>
-#include "launchpad.h"
-#include "drummer.h"
+#include "keyboard.h"
+#include "cymbal.h"
 
 void setup() {
   Serial.begin(115200);
   Serial.println("\n--TuneBox Setup--");
   Wire.begin(6, 7);
-  drummer::setup();
-  launchpad::setup();
+  cymbal::setup();
+  keyboard::setup();
   Serial.println("\n--Starting Program--");
   delay(2000);
 }
 
 void loop() {
-  drummer::loop();
-  launchpad::loop();
+  cymbal::loop();
+  keyboard::loop();
 }

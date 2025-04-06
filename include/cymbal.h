@@ -1,10 +1,10 @@
-#ifndef DRUMMER_H
-#define DRUMMER_H
+#ifndef CYMBAL_H
+#define CYMBAL_H
 
 #include <VL53L0X.h>
 #include <ESP32Servo.h>
 
-namespace drummer {
+namespace cymbal {
   extern VL53L0X tof;
   extern Servo leftservo;
   extern Servo rightservo;

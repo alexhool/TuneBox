@@ -1,19 +1,19 @@
-#include "launchpad.h"
-#include "drummer.h"
 #include <Arduino.h>
+#include "keyboard.h"
+#include "cymbal.h"
 
-SerLCD launchpad::lcd;
+SerLCD keyboard::lcd;
 
 const uint8_t speaker = 3;
 const uint8_t playButton = 12;
-const uint8_t noteButtons[7] = {16, 18, 19, 20, 21, 23, 22}; //PINS: C D E F G A B
+const uint8_t noteButtons[7] = {16, 18, 19, 20, 21, 23, 22}; // PINS: C D E F G A B
 const uint16_t pianoNotes[7] = {262, 294, 330, 349, 392, 440, 494}; // C4 D4 E4 F4 G4 A4 B4
 
 int8_t gameMode = 0; // 0 - Idle, 1 - Playing Notes, 2 - Game
 static bool once = false;
 
-void launchpad::setup(void) {
-  Serial.println("Launchpad Setup");        
+void keyboard::setup(void) {
+  Serial.println("Keyboard Setup");
 
   Serial.print("Initializing Buttons...");
   pinMode(LED_BUILTIN, OUTPUT);
@@ -33,7 +33,7 @@ void launchpad::setup(void) {
   Serial.println(" Done");
 }
 
-void launchpad::loop(void) {
+void keyboard::loop(void) {
   if (digitalRead(playButton) == HIGH) {
     Serial.println("Game Mode");
     startGame();
@@ -42,7 +42,7 @@ void launchpad::loop(void) {
   }
 }
 
-void launchpad::idleMode() {
+void keyboard::idleMode() {
   for (int8_t i = 0; i < 7; i++) {
     if (digitalRead(noteButtons[i]) == HIGH) {
       Serial.println(i);
@@ -60,7 +60,7 @@ void launchpad::idleMode() {
   }
 }
 
-bool launchpad::waitForInput(int correctNote) {
+bool keyboard::waitForInput(int correctNote) {
   unsigned long start = millis();
   const unsigned long timeout = 10000; // 10 second timeout
   
@@ -94,7 +94,7 @@ bool launchpad::waitForInput(int correctNote) {
   return false;
 }
 
-void launchpad::startGame(void) {
+void keyboard::startGame(void) {
   once = false;
   lcd.clear();
   lcd.print("Tune Box Game");
@@ -134,6 +134,6 @@ void launchpad::startGame(void) {
 
   lcd.clear();
   lcd.print("You Win!");
-  drummer::clap();
+  cymbal::clap();
   delay(2000);
 }
