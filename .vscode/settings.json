@@ -13,5 +13,8 @@
     "initializer_list": "cpp",
     "*.tcc": "cpp",
     "system_error": "cpp"
+  },
+  "files.readonlyInclude": {
+    ".vscode/extensions.json": true
   }
 }
